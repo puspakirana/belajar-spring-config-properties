@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+import java.util.Map;
+
 @ConfigurationProperties("application")
 public class ApplicationProperties {
 
@@ -11,6 +14,24 @@ public class ApplicationProperties {
     private Integer version;
     private boolean productionMode;
     private DatabaseProperties databaseProperties;
+    private List<Role> defaultRoles;
+    private Map<String, Role> roles;
+
+    public List<Role> getDefaultRoles() {
+        return defaultRoles;
+    }
+
+    public void setDefaultRoles(List<Role> defaultRoles) {
+        this.defaultRoles = defaultRoles;
+    }
+
+    public Map<String, Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Map<String, Role> roles) {
+        this.roles = roles;
+    }
 
     public String getName() {
         return this.name;
@@ -24,7 +45,7 @@ public class ApplicationProperties {
         return this.productionMode;
     }
 
-    public DatabaseProperties getDatabaseProperties() {
+    public DatabaseProperties getDatabase() {
         return databaseProperties;
     }
 
@@ -40,7 +61,7 @@ public class ApplicationProperties {
         this.productionMode = productionMode;
     }
 
-    public void setDatabaseProperties(DatabaseProperties databaseProperties) {
+    public void setDatabase(DatabaseProperties databaseProperties) {
         this.databaseProperties = databaseProperties;
     }
 
@@ -49,6 +70,9 @@ public class ApplicationProperties {
         private String password;
         private String url;
         private String database;
+
+        private List<String> whitelistTables;
+        private Map<String, Integer> maxTablesSize;
 
         public String getDatabase() {
             return database;
@@ -80,6 +104,43 @@ public class ApplicationProperties {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public List<String> getWhitelistTables() {
+            return whitelistTables;
+        }
+
+        public void setWhitelistTables(List<String> whitelistTables) {
+            this.whitelistTables = whitelistTables;
+        }
+
+        public Map<String, Integer> getMaxTablesSize() {
+            return maxTablesSize;
+        }
+
+        public void setMaxTablesSize(Map<String, Integer> maxTablesSize) {
+            this.maxTablesSize = maxTablesSize;
+        }
+    }
+
+    public static class Role {
+        private String id;
+        private String name;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }
